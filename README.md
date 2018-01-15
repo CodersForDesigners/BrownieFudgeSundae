@@ -2,19 +2,19 @@
 ### Modular Flat File CMS Framework (BFS 2.0)
 
 ## Objectives
-	1. Fully Reusable Front End Frame Work
-	2. Reasonably Limitless Responsive Capacity
-	3. Flexible, Platform Agnostic, Easily Transferable Database
-	4. Default Back-door
-	5. Admin Panel
-	6. Options Panel
-	7. Editable Page Content
+1. Fully Reusable Front End Frame Work
+2. Reasonably Limitless Responsive Capacity
+3. Flexible, Platform Agnostic, Easily Transferable Database
+4. Default Back-door
+5. Admin Panel
+6. Options Panel
+7. Editable Page Content
 
 ## Use Cases
-	1. Single Page Website
-	2. Multi Page Website
-	3. Single Page + Blog
-	4. Multi Page + Blog
+1. Single Page Website
+2. Multi Page Website
+3. Single Page + Blog
+4. Multi Page + Blog
 
 ## Level 1 CSS Essentials
 
