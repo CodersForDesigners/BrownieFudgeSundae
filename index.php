@@ -10,8 +10,9 @@
 	$viewName = $view[ 0 ];
 	$viewPath = $view[ 1 ];
 
-	// pull in Lazaro disclaimer and footer
-	require ('inc/lazaro.php');
+	// included external php files with functions.
+	require ('inc/head.php');
+	require ('inc/lazaro.php'); /* -- Lazaro disclaimer and footer -- */
 
 ?>
 
@@ -21,78 +22,15 @@
 
 <head>
 
-	<!-- Page Meta -->
+
+	<!-- Nothing Above This -->
 	<meta charset="utf-8">
-	<title>Project Name<?php echo ( $viewName != "404" ? " | " . $viewName : "" ) ?></title>
-	<meta name="description"
-		content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
-			Excepteur sint occaecat cupidatat non proident.">
-	<meta name="keywords" content="Keyword_A, Keyword_B, Keyword_C, Keyword_D, Keyword_E">
-	<meta name="author" content="Lazaro Advertising">
-	<link rel="canonical" href="https://example.com/">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<!-- Viewport -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<!-- Page Title | Page Name -->
+	<title>Page Title <?php echo ( $viewName != "404" ? " | " . $viewName : "" ) ?></title>
 
-	<!-- Favicon -->
-	<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
-	<link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
-	<link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
-	<link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
-	<link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
-	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
-	<link rel="icon" type="image/png" sizes="192x192"  href="favicon/android-icon-192x192.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-	<link rel="manifest" href="favicon/manifest.json">
-	<meta name="msapplication-TileColor" content="#444444">
-	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-	<meta name="theme-color" content="#444444">
-
-	<!-- Open Graph Name Space -->
-	<meta property="og:title" content="Your Title Here">
-	<meta property="og:type" content="website">
-	<meta property="og:url" content="http://example.com/product.html">
-	<meta property="og:site_name" content="http://example.com/">
-	<meta property="og:image" content="http://example.com/download/og-thumbnail-image.png">
-	<meta property="og:image:width" content="310">
-	<meta property="og:image:height" content="310">
-	<meta property="og:image" content="http://example.com/download/og-cover-image.png">
-	<meta property="og:image:width" content="1200">
-	<meta property="og:image:height" content="630">
-	<meta property="og:description"
-		content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
-			Excepteur sint occaecat cupidatat non proident.">
-
-	<!-- Facebook APP ID -->
-	<meta property="fb:app_id" content="Your FB_APP_ID">
-
-	<!-- Twitter Card Data -->
-	<meta name="twitter:card" content="summary">
-	<meta name="twitter:site" content="Your @publisher_handle">
-	<meta name="twitter:title" content="Your Page Title">
-	<meta name="twitter:description" content="Your Page description less than 200 characters">
-	<meta name="twitter:creator" content="Your @author_handle">
-
-	<!-- Twitter Summary card images must be at least 120x120px -->
-	<meta name="twitter:image" content="https://example.com/image.jpg">
-
-	<!-- Fonts -->
-	<link href="https://fonts.googleapis.com/css?family=Concert+One|Roboto:400,400i,700"
-		rel="stylesheet">
-
-	<!-- Icons -->
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-	<!-- Stylesheet -->
-	<link rel="stylesheet" type="text/css" href="/style.css">
-
-	<!-- jQuery 3 -->
-	<script type="text/javascript" src="/js/jquery-3.0.0.min.js"></script>
+	<?php echo gethead(); ?>
 
 </head>
 
@@ -132,7 +70,7 @@
 
 
 	<!-- Lazaro Signature -->
-	<?php lazaro(); ?>
+	<?php lazaro_signature(); ?>
 	<!-- END : Lazaro Signature -->
 
 </div><!-- END : Page Wrapper -->

@@ -1,4 +1,4 @@
-<?php  function lazaro(){ ?>
+<?php  function lazaro_signature(){ ?>
 
 <section class="lazaro-section">
 	<div class="container">
