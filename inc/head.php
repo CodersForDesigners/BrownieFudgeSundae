@@ -1,6 +1,8 @@
 <?php function gethead(){ ?>
 
-	<!-- 
+	<?php global $ver; ?>
+
+	<!--
 	*
 	*	SEO Content
 	*
@@ -15,7 +17,7 @@
 
 
 
-	<!-- 
+	<!--
 	*
 	*	Authors
 	*
@@ -31,7 +33,7 @@
 
 
 
-	<!-- 
+	<!--
 	*
 	*	SEO meta
 	*
@@ -53,7 +55,7 @@
 
 
 
-	<!-- 
+	<!--
 	*
 	*	Web Application
 	*
@@ -83,7 +85,7 @@
 
 
 
-	<!-- 
+	<!--
 	*
 	*	Social
 	*
@@ -127,7 +129,7 @@
 
 
 
-	<!-- 
+	<!--
 	*
 	*	Favicon
 	*
@@ -155,7 +157,7 @@
 
 
 
-	<!-- 
+	<!--
 	*
 	*	PreFetching, PreLoading, PreBrowsing
 	*
@@ -169,7 +171,7 @@
 
 
 
-	<!-- 
+	<!--
 	*
 	*	Enqueue Files
 	*
@@ -180,11 +182,11 @@
 	<!-- Icons -->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<!-- Stylesheet -->
-	<link rel="stylesheet" type="text/css" href="/style.css">
+	<?php require __DIR__ . '/../style.php'; ?>
 	<!-- jQuery 3 -->
-	<script type="text/javascript" src="plugins/jquery/jquery-3.0.0.min.js"></script>
+	<script type="text/javascript" src="plugins/jquery/jquery-3.0.0.min.js<?php echo $ver ?>"></script>
 	<!-- Slick Carousel -->
-	<link rel="stylesheet" type="text/css" href="plugins/slick/slick.css?v=2.6.2"/>
-	<link rel="stylesheet" type="text/css" href="plugins/slick/slick-theme.css?v=2.6.2"/>
+	<link rel="stylesheet" type="text/css" href="plugins/slick/slick.css<?php echo $ver ?>"/>
+	<link rel="stylesheet" type="text/css" href="plugins/slick/slick-theme.css<?php echo $ver ?>"/>
 
-<? } ?>
+<?php } ?>

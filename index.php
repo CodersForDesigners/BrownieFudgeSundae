@@ -5,6 +5,11 @@
 	ini_set( "display_errors", "On" );
 	ini_set( "error_reporting", E_ALL );
 
+	/*
+	 * Versioning Assets to invalidate the browser cache
+	 */
+	$ver = '?v=20180327';
+
 	// get info on the request
 	$view = require "server/pageless.php";
 	$viewName = $view[ 0 ];
@@ -46,7 +51,7 @@
 			<div class="header row">
 				<div class="columns small-3">
 					<a class="logo" href="/">
-						<img src="/img/logo.svg">
+						<img src="/img/logo.svg<?php echo $ver ?>">
 					</a>
 				</div>
 				<div class="text-right columns small-9">
