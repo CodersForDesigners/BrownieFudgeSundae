@@ -26,8 +26,6 @@
 		*	3_grid_column_12.css
 		*	4_helper.css
 		*	5_project_style.css
-		*	6_modules.css
-		*	7_pages.css
 		□	modules
 			*	header.css
 			*	lazaro-signature.css
@@ -39,20 +37,13 @@
 			□	modal
 				*	modal-menu.css
 			□	section
-				*	action-section.css
-				*	benefits-section.css
-				*	clients-section.css
-				*	landing-section.css
-				*	navigation-section.css
-				*	pricing-section.css
-				*	qwikspec-section.css
-				*	rera-section.css
-				*	workday-section.css
+				*	sample-section.css
 
 	[ ] Plugins
+		[ ] jQuery
+			*	jquery-3.0.0.min.js
 		[ ] slick
 			*	ajax-loader.gif
-			*	config.rb
 			*	ic_next.svg
 			*	ic_prev.svg
 			*	slick-theme.css
