@@ -13,15 +13,7 @@
 <link rel="stylesheet" type="text/css" href="css/modules/modal-box.css<?php echo $ver ?>">
 <link rel="stylesheet" type="text/css" href="css/modules/lazaro-signature.css<?php echo $ver ?>">
 
-<!-- Pages -->
+<!-- Pages + Sections + Modals -->
 <link rel="stylesheet" type="text/css" href="css/pages/page.css<?php echo $ver ?>">
-<link rel="stylesheet" type="text/css" href="css/pages/section/navigation-section.css<?php echo $ver ?>">
 <link rel="stylesheet" type="text/css" href="css/pages/modal/modal-menu.css<?php echo $ver ?>">
 <link rel="stylesheet" type="text/css" href="css/pages/section/landing-section.css<?php echo $ver ?>">
-<link rel="stylesheet" type="text/css" href="css/pages/section/clients-section.css<?php echo $ver ?>">
-<link rel="stylesheet" type="text/css" href="css/pages/section/benefits-section.css<?php echo $ver ?>">
-<link rel="stylesheet" type="text/css" href="css/pages/section/action-section.css<?php echo $ver ?>">
-<link rel="stylesheet" type="text/css" href="css/pages/section/pricing-section.css<?php echo $ver ?>">
-<link rel="stylesheet" type="text/css" href="css/pages/section/workday-section.css<?php echo $ver ?>">
-<link rel="stylesheet" type="text/css" href="css/pages/section/rera-section.css<?php echo $ver ?>">
-<link rel="stylesheet" type="text/css" href="css/pages/section/qwikspec-section.css<?php echo $ver ?>">
