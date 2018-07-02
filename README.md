@@ -1,5 +1,5 @@
 # BrownieFudgeSundae
-### Modular Flat File CMS Framework (BFS 2.0)
+### Modular Flat File CMS Framework (BFS 2.2)
 
 ## Objectives
 1. Fully Reusable Front End Frame Work
