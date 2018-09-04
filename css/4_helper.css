@@ -198,7 +198,7 @@
  * Mobile only -> Hide visually and from screen readers
  */
 
-@media ( max-width: 640px ) {
+@media ( max-width: 639px ) {
 	.hide-for-mobile {
 		display: none !important;
 	}
@@ -206,7 +206,7 @@
 
 .show-for-mobile { display: none !important; }
 
-@media ( max-width: 640px ) {
+@media ( max-width: 639px ) {
 	.show-for-mobile {
 		display: block !important;
 	}
