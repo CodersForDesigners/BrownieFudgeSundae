@@ -168,6 +168,10 @@ $(document).ready(function(){
 
 </script>
 
+<!-- Other Modules -->
+<?php // require __DIR__ . '/inc/can-user-hover.php' ?>
+
+
 </body>
 
 </html>
