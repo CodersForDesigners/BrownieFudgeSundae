@@ -8,7 +8,7 @@
 	/*
 	 * Versioning Assets to invalidate the browser cache
 	 */
-	$ver = '?v=20180327';
+	$ver = '?v=20181126';
 
 	// get info on the request
 	$view = require "server/pageless.php";
@@ -58,6 +58,7 @@
 					<div class="navigation inline">
 						<a class="button js_nav_button <?php echo ( $viewName == "pageone" ? "active" : "" ) ?>" data-page-id="pageone" href="/pageone">page-1</a>
 						<a class="button js_nav_button <?php echo ( $viewName == "pagetwo" ? "active" : "" ) ?>" data-page-id="pagetwo" href="/pagetwo">page-2</a>
+						<a class="button js_nav_button <?php echo ( $viewName == "page-bg-video" ? "active" : "" ) ?>" data-page-id="page-bg-video" href="/page-bg-video">Background video</a>
 						<a class="button js_nav_button <?php echo ( $viewName == "contact" ? "active" : "" ) ?>" data-page-id="contact" href="/contact">contact</a>
 					</div>
 				</div>

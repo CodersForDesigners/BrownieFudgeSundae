@@ -49,6 +49,44 @@ function initVideoEmbeds () {
 		} );
 	}, 3000);
 
+	// If there isn't a background YouTube embed, move on
+	if ( $( ".js_embed_bg_yt" ).length == 0 )
+		return;
+
+	// If there is a background YouTube embed, then
+	// 1. Load the YouTube API library (asynchronously)
+	var scriptElement = document.createElement( "script" );
+	scriptElement.src = "https://www.youtube.com/iframe_api";
+	$( "script" ).last().after( scriptElement );
+
+	// 2. Setup the YouTube video, its playback options and hooks event handling
+	function onYouTubeIframeAPIReady () {
+		new YT.Player( "embed_player_container", {
+			events: {
+				onReady: onPlayerReady,
+				onStateChange: onPlayerStateChange
+			}
+		} );
+	}
+	// This function needs to exposed as a global
+	window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+
+	// When the YouTube video player is ready, this function is run
+	function onPlayerReady ( event ) {
+		// We wait for a moment and then play the video.
+		// This is so that it autoplays on mobile devices
+		setTimeout( function () {
+		  	event.target.playVideo();
+		}, 1500 )
+	}
+
+	// Whenever the YouTube video player's state changes, this function is run
+	function onPlayerStateChange ( event ) {
+		console.log( event.data )
+		if ( event.data == YT.PlayerState.ENDED )
+			event.target.seekTo( 0 )
+	}
+
 }
 
 $( function () {
