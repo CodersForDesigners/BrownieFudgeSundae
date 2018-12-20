@@ -1,6 +1,9 @@
 
-js/.DS_Store
-plugins/.DS_Store
-css/pages/.DS_Store
-css/pages/section/.DS_Store
-plugins/slick/.DS_Store
+# the .DS_Store files everywhere
+.DS_Store
+
+# the media directory
+/media
+
+# the favicon directory
+/favicon
