@@ -7,3 +7,6 @@
 
 # the favicon directory
 /favicon
+
+# the download directory
+/download
