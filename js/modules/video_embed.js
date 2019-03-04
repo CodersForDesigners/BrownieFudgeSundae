@@ -61,7 +61,7 @@ function initVideoEmbeds () {
 
 	// 2. Setup the YouTube video, its playback options and hooks event handling
 	function onYouTubeIframeAPIReady () {
-		new YT.Player( "embed_player_container", {
+		new YT.Player( "youtube_video_embed", {
 			events: {
 				onReady: onPlayerReady,
 				onStateChange: onPlayerStateChange
@@ -82,7 +82,7 @@ function initVideoEmbeds () {
 
 	// Whenever the YouTube video player's state changes, this function is run
 	function onPlayerStateChange ( event ) {
-		console.log( event.data )
+		// console.log( event.data )
 		if ( event.data == YT.PlayerState.ENDED )
 			event.target.seekTo( 0 )
 	}
