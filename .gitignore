@@ -10,3 +10,7 @@
 
 # the download directory
 /download
+
+# the CMS ( i.e. WordPress ) folder
+/cms
+

@@ -1,3 +1,15 @@
+<?php
+
+// Page-specific preparatory code goes here.
+
+?>
+
+<?php require_once __DIR__ . '/../inc/above.php'; ?>
+
+
+
+
+
 
 <!--
 	This snippet is for when you want add a auto-playing video in the background,
@@ -17,3 +29,9 @@
 	</div>
 
 </section> <!-- END : Video BG Section -->
+
+
+
+
+
+<?php require_once __DIR__ . '/../inc/below.php'; ?>

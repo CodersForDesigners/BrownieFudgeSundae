@@ -1,20 +1,42 @@
-<?php function gethead(){ ?>
+<?php
 
-	<?php global $ver; ?>
+/*
+ * Get all the links on the site
+ */
+$defaultLinks = require __DIR__ . '/default-nav-links.php';
+$links = getContent( $defaultLinks, 'pages' );
+
+/*
+ * Get the title and URL of the website and current page
+ */
+// $siteUrl = getSiteUrl();
+$siteTitle = getContent( 'Brownie As Fudge', 'site_title' );
+$pageUrl = $siteUrl . $_SERVER[ 'REQUEST_URI' ];
+$pageTitle = getCurrentPageTitle( $links, $siteTitle );
+
+?>
+
+<head>
+
+	<!-- Do NOT place anything above this -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title><?php echo $pageTitle ?></title>
+
+
+	<base href="/">
 
 	<!--
 	*
-	*	SEO Content
+	*	Metadata
 	*
 	- -->
-	<!-- Short description of your document's subject -->
-	<meta name="subject" content="your document's subject">
 	<!-- Short description of the document (limit to 150 characters) -->
 	<!-- This content *may* be used as a part of search engine results. -->
-	<meta name="description" content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod. Excepteur sint occaecat cupidatat non proident.">
-	<!-- Key Words -->
-	<meta name="keywords" content="Keyword_A, Keyword_B, Keyword_C, Keyword_D, Keyword_E">
-
+	<meta name="description" content="<?php echo getContent( 'Not much to say about this.', 'description' ); ?>">
+	<!-- Short description of your document's subject -->
+	<meta name="subject" content="<?php echo getContent( 'A matter of grave concern', 'subject' ); ?>">
 
 
 	<!--
@@ -26,114 +48,28 @@
 	<meta name="author" content="Lazaro Advertising">
 	<link rel="author" href="humans.txt">
 
-	<!-- Provides information about an author or another person -->
-	<link rel="me" href="https://google.com/profiles/thenextweb" type="text/html">
-	<link rel="me" href="mailto:name@example.com">
-	<link rel="me" href="sms:+15035550125">
-
-
 
 	<!--
 	*
-	*	SEO meta
+	*	SEO
 	*
 	- -->
-	<!-- Set the base URL for all relative URLs within the document -->
-	<base href="/"><!-- ( example : http://example.com/page.html ) -->
-	<!-- Links to top level resource in an hierarchical structure -->
-	<link rel="index" href="http://example.com/article/">
-	<!-- Helps prevent duplicate content issues -->
-	<link rel="canonical" href="https://example.com/">
 	<!-- Control the behavior of search engine crawling and indexing -->
 	<meta name="robots" content="index,follow"><!-- All Search Engines -->
 	<meta name="googlebot" content="index,follow"><!-- Google Specific -->
 	<!-- Verify website ownership -->
-	<meta name="google-site-verification" content="verification_token"><!-- Google Search Console -->
-	<meta name="alexaVerifyID" content="verification_token"><!-- Alexa Console -->
-	<!-- Links to an AMP HTML version of the current document -->
-	<link rel="amphtml" href="http://example.com/path/to/amp-version.html">
-
+	<meta name="google-site-verification" content="<?php echo getContent( '', 'google_site_verification_token' ); ?>"><!-- Google Search Console -->
 
 
 	<!--
 	*
-	*	Web Application
+	*	UI / Chrome
 	*
 	- -->
-	<!-- Name of web application (only should be used if the website is used as an app) -->
-	<meta name="application-name" content="Application Name">
+	<!-- Theme Color for Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="<?php echo getContent( '#f9f9f9', 'theme_color' ); ?>">
 
-	<!-- Links to a JSON file that specifies "installation" credentials for the web applications -->
-	<link rel="manifest" href="manifest.json">
-
-	<!-- ~ iOS ~ -->
-	<!-- Disable automatic detection and formatting of possible phone numbers -->
-	<meta name="format-detection" content="telephone=no">
-	<!-- Launch Screen Image -->
-	<link rel="apple-touch-startup-image" href="/path/to/launch.png">
-	<!-- Launch Icon Title -->
-	<meta name="apple-mobile-web-app-title" content="App Title">
-	<!-- Enable standalone (full-screen) mode -->
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<!-- Status bar appearance (has no effect unless standalone mode is enabled) -->
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-	<!-- ~ Android ~ -->
-	<!-- Add to home screen -->
-	<meta name="mobile-web-app-capable" content="yes">
-	<!-- More info: https://developer.chrome.com/multidevice/android/installtohomescreen -->
-
-
-
-	<!--
-	*
-	*	Social
-	*
-	- -->
-	<!-- Facebook Open Graph -->
-	<meta property="fb:app_id" content="123456789">
-	<meta property="og:url" content="http://example.com/page.html">
-	<meta property="og:type" content="website">
-	<meta property="og:title" content="Content Title">
-	<meta property="og:image" content="http://example.com/image.jpg">
-	<meta property="og:description" content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod. Excepteur sint occaecat cupidatat non proident.">
-	<meta property="og:site_name" content="Site Name">
-	<meta property="og:locale" content="en_US">
-	<meta property="article:author" content="">
-
-
-
-	<!-- ~ Facebook Instant Article ~ -->
-	<!-- (sample : https://developers.facebook.com/docs/instant-articles/reference) -->
-	<!-- (source : https://developers.facebook.com/docs/instant-articles/guides/articlecreate) -->
-	<meta property="op:markup_version" content="v1.0">
-	<!-- The URL of the web version of your article -->
-	<link rel="canonical" href="http://example.com/article.html">
-	<!-- The style to be used for this article -->
-	<meta property="fb:article_style" content="myarticlestyle">
-
-	<!-- Twitter Card -->
-	<meta name="twitter:card" content="summary">
-	<meta name="twitter:site" content="@site_handle">
-	<meta name="twitter:creator" content="@publisher_handle">
-	<meta name="twitter:url" content="http://example.com/page.html">
-	<meta name="twitter:title" content="Post Title">
-	<meta name="twitter:description" content="Content description less than 200 characters">
-	<meta name="twitter:image" content="http://example.com/image.jpg">
-
-	<!-- Google+ / Schema.org -->
-	<link href="https://plus.google.com/+YourPage" rel="publisher">
-	<meta itemprop="name" content="Content Title">
-	<meta itemprop="description" content="Content description less than 200 characters">
-	<meta itemprop="image" content="http://example.com/image.jpg">
-
-
-
-	<!--
-	*
-	*	Favicon
-	*
-	- -->
+	<!-- Favicons -->
 	<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
 	<link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
@@ -150,25 +86,58 @@
 	<link rel="manifest" href="favicon/manifest.json">
 	<meta name="msapplication-TileColor" content="#444444">
 	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-	<meta name="theme-color" content="#444444">
 
-	<!-- Safari Pinned Tab Icon -->
-	<link rel="mask-icon" href="/path/to/icon.svg" color="blue">
 
+	<!-- ~ iOS ~ -->
+	<!-- Disable automatic detection and formatting of possible phone numbers -->
+	<meta name="format-detection" content="telephone=no">
+	<!-- Launch Screen Image -->
+	<!-- <link rel="apple-touch-startup-image" href="/path/to/launch.png"> -->
+	<!-- Launch Icon Title -->
+	<meta name="apple-mobile-web-app-title" content="<?php echo getContent( 'Brown.ie', 'apple -> ios_app_title' ); ?>">
+	<!-- Enable standalone (full-screen) mode -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<!-- Status bar appearance (has no effect unless standalone mode is enabled) -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="<?php echo getContent( 'default', 'apple -> ios_status_bar_style' ); ?>">
+
+	<!-- ~ Android ~ -->
+	<!-- Add to home screen -->
+	<meta name="mobile-web-app-capable" content="yes">
+	<!-- More info: https://developer.chrome.com/multidevice/android/installtohomescreen -->
 
 
 	<!--
 	*
-	*	PreFetching, PreLoading, PreBrowsing
+	*	Social
 	*
 	- -->
-	<!-- More info: https://css-tricks.com/prefetching-preloading-prebrowsing/ -->
-	<link rel="dns-prefetch" href="//example.com/">
-	<link rel="preconnect" href="https://www.example.com/">
-	<link rel="prefetch" href="https://www.example.com/">
-	<link rel="prerender" href="http://example.com/">
-	<link rel="preload" href="image.png" as="image">
+	<!-- Facebook Open Graph -->
+	<meta property="og:url" content="<?php echo $pageUrl ?>">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="<?php echo $pageTitle ?>">
+	<meta property="og:image" content="<?php echo getContent( '', 'og -> image' ) ?>">
+	<meta property="og:description" content="<?php echo getContent( '', 'og -> description' ) ?>">
+	<meta property="og:site_name" content="<?php echo getContent( '', 'site_title' ) ?>">
 
+
+	<!-- Schema.org / Google+ -->
+	<meta itemprop="name" content="<?php echo $pageTitle ?>">
+	<meta itemprop="description" content="<?php echo getContent( 'This is a website', 'schema -> description' ) ?>">
+	<meta itemprop="image" content="<?php echo getContent( '', 'schema -> image' ) ?>">
+
+
+	<!--
+	*
+	*	Arbitrary Code
+	*
+	- -->
+	<?php echo getContent( <<<ARB
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Concert+One|Roboto:400,400i,700" rel="stylesheet">
+	<!-- Icons -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ARB
+, 'arbitrary_code' ) ?>
 
 
 	<!--
@@ -176,11 +145,6 @@
 	*	Enqueue Files
 	*
 	- -->
-
-	<!-- Fonts -->
-	<link href="https://fonts.googleapis.com/css?family=Concert+One|Roboto:400,400i,700" rel="stylesheet">
-	<!-- Icons -->
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<!-- Stylesheet -->
 	<?php require __DIR__ . '/../style.php'; ?>
 	<!-- jQuery 3 -->
@@ -189,4 +153,4 @@
 	<link rel="stylesheet" type="text/css" href="plugins/slick/slick.css<?php echo $ver ?>"/>
 	<link rel="stylesheet" type="text/css" href="plugins/slick/slick-theme.css<?php echo $ver ?>"/>
 
-<?php } ?>
+</head>
