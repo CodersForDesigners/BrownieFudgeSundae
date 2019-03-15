@@ -1,3 +1,4 @@
+<!-- ⬇ All Modals below this point ⬇ -->
 
 <div id="modal-wrapper"><!-- Modal Wrapper -->
 	<div class="modal-box js_modal_box">
