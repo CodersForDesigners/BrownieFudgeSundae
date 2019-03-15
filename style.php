@@ -2,7 +2,7 @@
 <!-- Base -->
 <link rel="stylesheet" type="text/css" href="css/1_normalize.css<?php echo $ver ?>">
 <link rel="stylesheet" type="text/css" href="css/2_base.css<?php echo $ver ?>">
-<link rel="stylesheet" type="text/css" href="css/3_grid_column_12.css<?php echo $ver ?>">
+<link rel="stylesheet" type="text/css" href="css/3_grid.css<?php echo $ver ?>">
 <link rel="stylesheet" type="text/css" href="css/4_helper.css<?php echo $ver ?>">
 <link rel="stylesheet" type="text/css" href="css/5_project_style.css<?php echo $ver ?>">
 

@@ -127,7 +127,7 @@
 	.lazaro-disclaimer .message p { font-size: 1.8rem; }
 }
 
-@media ( min-width: 1380px ) {
+@media ( min-width: 1480px ) {
 	.lazaro-disclaimer .heading { font-size: 2.8rem }
 	.lazaro-disclaimer .message {
 		padding: 50px;

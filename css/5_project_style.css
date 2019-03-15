@@ -8,7 +8,7 @@
  
 @media( min-width: 640px )  {}
 @media( min-width: 1040px ) {}
-@media( min-width: 1380px ) {}
+@media( min-width: 1480px ) {}
 
 /* ## Extra Breakpoints
  * ====================
@@ -18,7 +18,7 @@
 @media( min-width: 800px )  {}
 @media( min-width: 1040px ) {}
 @media( min-width: 1200px ) {}
-@media( min-width: 1380px ) {}
+@media( min-width: 1480px ) {}
 @media( min-width: 1600px ) {}
 @media( min-width: 1940px ) {}
 
@@ -124,7 +124,7 @@ label, .label { font-size: 1.0rem; text-transform: uppercase; }
 	label, .label { font-size: 1.2rem; }
 }
 
-@media( min-width: 1380px ) {
+@media( min-width: 1480px ) {
 	h1, .h1 { font-size: 9.1rem; }
 	h2, .h2 { font-size: 6.1rem; }
 	h3, .h3 { font-size: 4.0rem; }
@@ -241,7 +241,7 @@ select:focus {
 
 @media( min-width: 640px )  {}
 @media( min-width: 1040px ) {}
-@media( min-width: 1380px ) {
+@media( min-width: 1480px ) {
 	input[type="email"],
 	input[type="number"],
 	input[type="search"],
@@ -340,7 +340,7 @@ select:focus {
 	.block-space-bottom { padding: 0 0 180px 0; }
 }
 
-@media( min-width: 1380px ) {
+@media( min-width: 1480px ) {
 	.block-space-top-bottom { padding: 240px 0; }
 	.block-space-top { padding: 240px 0 0 0; }
 	.block-space-bottom { padding: 0 0 240px 0; }

@@ -25,7 +25,7 @@
 		max-width: 1200px; }
 }
 
-@media ( min-width: 1380px ) {
+@media ( min-width: 1480px ) {
 	.outer-container {
 		max-width: 1600px; }
 }

@@ -21,9 +21,7 @@
 	*	style.css
 		*	1_normalize.css
 		*	2_base.css
-		*	3_grid_basic.css
-		*	3_grid_column_1.css
-		*	3_grid_column_12.css
+		*	3_grid.css
 		*	4_helper.css
 		*	5_project_style.css
 		□	modules
