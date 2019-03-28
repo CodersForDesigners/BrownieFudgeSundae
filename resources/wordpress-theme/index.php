@@ -11,6 +11,11 @@
  * @since 1.0.0
  */
 
+function stringEndsWith ( $string, $key ) {
+	return strrpos( $string, $key ) !== false;
+}
+
 # A convenient redirect to the login page
-if ( $_SERVER[ 'REQUEST_URI' ] == '/cms/' )
-	header( 'Location: /cms/wp-login.php' );
+$requestURI = $_SERVER[ 'REQUEST_URI' ];
+if ( stringEndsWith( $requestURI, '/cms/' ) )
+	header( 'Location: ' . $requestURI . 'wp-login.php' );
