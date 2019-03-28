@@ -40,10 +40,20 @@ function setupVars () {
  * Pull custom content from ACF fields from WordPress
  *
  */
-function getContent ( $fallback, $field, $context = 'options' ) {
+function getContent ( $fallback, $field, $context = null ) {
 
 	if ( ! function_exists( 'get_field' ) )
 		return $fallback;
+
+	if ( empty( $context ) )
+		$context = 'options';
+	else {
+		$page = get_page_by_path( $context );
+		if ( empty( $page ) or empty( $page->ID ) )
+			$context = 'options';
+		else
+			$context = $page->ID;
+	}
 
 	$fieldParts = preg_split( '/\s*->\s*/' , $field );
 	$content = get_field( $fieldParts[ 0 ], $context );
