@@ -34,9 +34,9 @@ $pageTitle = getCurrentPageTitle( $links, $siteTitle );
 	- -->
 	<!-- Short description of the document (limit to 150 characters) -->
 	<!-- This content *may* be used as a part of search engine results. -->
-	<meta name="description" content="<?php echo getContent( 'Not much to say about this.', 'description' ); ?>">
+	<meta name="description" content="<?php echo getContent( '', 'description' ); ?>">
 	<!-- Short description of your document's subject -->
-	<meta name="subject" content="<?php echo getContent( 'A matter of grave concern', 'subject' ); ?>">
+	<meta name="subject" content="<?php echo getContent( '', 'subject' ); ?>">
 
 
 	<!--
