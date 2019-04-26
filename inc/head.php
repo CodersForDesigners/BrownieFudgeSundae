@@ -14,6 +14,24 @@ $siteTitle = getContent( 'Brownie As Fudge', 'site_title' );
 $pageUrl = $siteUrl . $_SERVER[ 'REQUEST_URI' ];
 $pageTitle = getCurrentPageTitle( $links, $siteTitle );
 
+/*
+ * Figure out the base URL
+ */
+$urlFragments = preg_split( '/\//', $_SERVER[ 'REQUEST_URI' ] );
+	// Pull out the first non-empty fragment
+$calculatedBaseSlug = '';
+$inferredBaseSlug = $_GET[ '_slug' ] ?? '';
+foreach ( $urlFragments as $fragment ) {
+	if ( ! empty( $fragment ) ) {
+		$calculatedBaseSlug = $fragment;
+		break;
+	}
+}
+if ( $inferredBaseSlug == $calculatedBaseSlug )
+	$baseURL = null;
+else
+	$baseURL = '/' . $calculatedBaseSlug . '/';
+
 ?>
 
 <head>
@@ -25,7 +43,9 @@ $pageTitle = getCurrentPageTitle( $links, $siteTitle );
 	<title><?php echo $pageTitle ?></title>
 
 
-	<base href="/">
+	<?php if ( ! empty( $baseURL ) ) : ?>
+		<base href="<?php echo $baseURL ?>">
+	<?php endif; ?>
 
 	<!--
 	*
