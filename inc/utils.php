@@ -111,18 +111,17 @@ function getCurrentPageTitle ( $siteLinks, $siteTitle ) {
 	if ( strlen( $currentPageSlug ) <= 1 )
 		$currentPageSlug = '/';
 
-	if ( $currentPageSlug != '/' ) {
-		$partialPageTitle = 'Untitled';
-		foreach ( $siteLinks as $link ) {
-			if ( $currentPageSlug == $link[ 'slug' ] ) {
-				$partialPageTitle = $link[ 'title' ];
-				break;
-			}
+	$partialPageTitle = 'Untitled';
+	foreach ( $siteLinks as $link ) {
+		if ( $currentPageSlug == $link[ 'slug' ] ) {
+			$partialPageTitle = $link[ 'title' ];
+			break;
 		}
-		$pageTitle = $partialPageTitle . ' | ' . $siteTitle;
 	}
-	else
+	if ( $partialPageTitle == 'Untitled' and $currentPageSlug == '/' )
 		$pageTitle = $siteTitle;
+	else
+		$pageTitle = $partialPageTitle . ' | ' . $siteTitle;
 
 	return $pageTitle;
 
