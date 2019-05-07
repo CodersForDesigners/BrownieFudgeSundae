@@ -8,9 +8,8 @@
 				<div class="row">
 					<div class="columns small-12">
 						<!-- video embed -->
-						<div class="youtube_embed ga_video" data-src="https://www.youtube.com/embed/lncVHzsc_QA?rel=0&amp;showinfo=0" data-ga-video-src="Sample - Video">
-							<div class="youtube_load"></div>
-							<iframe width="1280" height="720" src="" frameborder="0" allowfullscreen></iframe>
+						<div class="video-embed js_video_embed" data-src="lncVHzsc_QA">
+							<div class="video-loading-indicator"></div>
 						</div>
 					</div>
 				</div>
@@ -28,9 +27,8 @@
 				<div class="row">
 					<!-- video embed -->
 					<div class="columns small-12">
-						<div class="youtube_embed ga_video" data-src="https://www.youtube.com/embed/lncVHzsc_QA?rel=0&amp;showinfo=0" data-ga-video-src="Sample - Video">
-							<div class="youtube_load"></div>
-							<iframe width="1280" height="720" src="" frameborder="0" allowfullscreen></iframe>
+						<div class="video-embed js_video_embed" data-src="lncVHzsc_QA">
+							<div class="video-loading-indicator"></div>
 						</div>
 					</div>
 				</div>

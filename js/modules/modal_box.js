@@ -47,7 +47,7 @@ $( function () {
 
 		var $videoEmbeds = $( event.target )
 			.closest( ".js_modal_box" )
-			.find( ".youtube_embed" );
+			.find( ".js_video_embed" );
 		$videoEmbeds.each( function ( _i, el ) {
 			unsetVideoEmbed( el );
 			setVideoEmbed( el );

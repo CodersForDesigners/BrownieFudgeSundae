@@ -22,9 +22,9 @@
 <section>
 
 	<div>
-		<div class="youtube-embed-bg js_embed_bg_yt ga_video" data-ga-video-src="Sample - Video">
-			<div class="youtube_load"></div>
-			<iframe id="youtube_video_embed" width="1280" height="1200" src="https://www.youtube.com/embed/68MBwELQKmk?enablejsapi=1&html5=1&mute=1&color=white&controls=0&disablekb=1&fs=0&autoplay=0&loop=0&modestbranding=1&playsinline=1&rel=0&showinfo=0&end=5" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		<div class="video-embed video-embed-bg js_video_embed js_video_get_player" data-src="68MBwELQKmk" data-loop="true" data-autoplay="true">
+			<div class="video-embed-placeholder" style="background-image: url( 'https://via.placeholder.com/1500' );"></div>
+			<!-- <div class="video-loading-indicator"></div> -->
 		</div>
 	</div>
 
