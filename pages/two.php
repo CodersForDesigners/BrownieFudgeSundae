@@ -25,10 +25,14 @@
 
 				<br>
 
-				<div class="youtube_embed ga_video" data-src="https://www.youtube.com/embed/Fd1Xc6-6VVg?rel=0&amp;showinfo=0" data-ga-video-src="Sample - Video">
-					<div class="youtube_load"></div>
-					<iframe width="1280" height="720" src="" frameborder="0" allowfullscreen></iframe>
+				<!-- On-demand version -->
+				<div class="video-embed js_video_embed" data-src="Fd1Xc6-6VVg">
+					<div class="video-loading-indicator"></div>
 				</div>
+				<!-- Auto-playing version -->
+				<!-- <div class="video-embed video-embed-bg js_video_embed js_video_get_player" data-src="Fd1Xc6-6VVg" data-loop="true" data-autoplay="true">
+					<div class="video-embed-placeholder" style="background-image: url( https://via.placeholder.com/1500 );"></div>
+				</div> -->
 
 				<br>
 
