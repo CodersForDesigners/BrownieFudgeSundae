@@ -13,6 +13,11 @@ require_once __DIR__ . '/lazaro.php';
  */
 $ver = '?v=20181126';
 
+// #fornow
+// Just so that when some social media service (WhatsApp) try to ping URL,
+//  	it should not get a 404. This because is setting the response header.
+http_response_code( 200 );
+
 ?>
 
 <!DOCTYPE html>

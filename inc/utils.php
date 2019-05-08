@@ -105,7 +105,7 @@ function isOnHTTPS () {
  * Get the title of the current page
  *
  */
-function getCurrentPageTitle ( $siteLinks, $siteTitle ) {
+function getCurrentPageTitle ( $siteLinks, $baseURL, $siteTitle ) {
 
 	$currentPageSlug = $_SERVER[ 'REQUEST_URI' ];
 	if ( strlen( $currentPageSlug ) <= 1 )
@@ -113,7 +113,8 @@ function getCurrentPageTitle ( $siteLinks, $siteTitle ) {
 
 	$partialPageTitle = 'Untitled';
 	foreach ( $siteLinks as $link ) {
-		if ( $currentPageSlug == $link[ 'slug' ] ) {
+		$fullSlug = preg_replace( '/\/+/', '/', $baseURL . $link[ 'slug' ] );
+		if ( $currentPageSlug == $fullSlug ) {
 			$partialPageTitle = $link[ 'title' ];
 			break;
 		}
