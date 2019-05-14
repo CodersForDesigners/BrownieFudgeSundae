@@ -9,7 +9,8 @@ $links = getContent( $defaultLinks, 'pages' );
 /*
  * Figure out the base URL
  */
-$urlFragments = preg_split( '/\//', $_SERVER[ 'REQUEST_URI' ] );
+$urlPath = strstr( $_SERVER[ 'REQUEST_URI' ], '?', true );
+$urlFragments = preg_split( '/\//', $urlPath );
 	// Pull out the first non-empty fragment
 $calculatedBaseSlug = '';
 $inferredBaseSlug = $_GET[ '_slug' ] ?? '';
