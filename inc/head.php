@@ -30,7 +30,7 @@ else
  */
 // $siteUrl = getSiteUrl();
 $siteTitle = getContent( 'Brownie As Fudge', 'site_title' );
-$pageUrl = $siteUrl . $_SERVER[ 'REQUEST_URI' ];
+$pageUrl = $siteUrl . $urlPath;
 $pageTitle = getCurrentPageTitle( $links, $baseURL, $siteTitle );
 
 ?>
