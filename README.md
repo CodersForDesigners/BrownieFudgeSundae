@@ -28,7 +28,6 @@
 			*	header.css
 			*	lazaro-signature.css
 			*	modal-box.css
-			*	pageless.css
 			*	video-embed.css
 		□	pages
 			*	page.css
@@ -431,7 +430,7 @@ Similar to the previous 12-column grid (fluid) grid system, each cell should hav
 
 In this system however, you have more control over the width of a cell. You can make cell span 12 columns on mobile screen, 4 columns on tablet, and 3 columns on desktop/laptops.
 Instead of having class names with just the numbers, here, they are prefixed with either small-, medium- or large-. Also, the numbers are not spelled out in english.
-Like so,	
+Like so,
 small-12
 medium-4
 large-3

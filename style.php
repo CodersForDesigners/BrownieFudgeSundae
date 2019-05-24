@@ -7,7 +7,6 @@
 <link rel="stylesheet" type="text/css" href="css/5_stylescape.css<?php echo $ver ?>">
 
 <!-- Modules -->
-<link rel="stylesheet" type="text/css" href="css/modules/pageless.css<?php echo $ver ?>">
 <link rel="stylesheet" type="text/css" href="css/modules/header.css<?php echo $ver ?>">
 <link rel="stylesheet" type="text/css" href="css/modules/video-embed.css<?php echo $ver ?>">
 <link rel="stylesheet" type="text/css" href="css/modules/modal-box.css<?php echo $ver ?>">
