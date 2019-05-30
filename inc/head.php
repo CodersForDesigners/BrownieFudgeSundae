@@ -10,6 +10,8 @@ $links = getContent( $defaultLinks, 'pages' );
  * Figure out the base URL
  */
 $urlPath = strstr( $_SERVER[ 'REQUEST_URI' ], '?', true );
+if ( ! $urlPath )
+	$urlPath = $_SERVER[ 'REQUEST_URI' ];
 $urlFragments = preg_split( '/\//', $urlPath );
 	// Pull out the first non-empty fragment
 $calculatedBaseSlug = '';
@@ -21,7 +23,7 @@ foreach ( $urlFragments as $fragment ) {
 	}
 }
 if ( $inferredBaseSlug == $calculatedBaseSlug )
-	$baseURL = null;
+	$baseURL = '';
 else
 	$baseURL = '/' . $calculatedBaseSlug . '/';
 
