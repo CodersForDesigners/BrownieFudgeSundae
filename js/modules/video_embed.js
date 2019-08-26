@@ -21,7 +21,7 @@ function initialiseVideoEmbeds () {
 			allow: "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture",
 			allowfullscreen: ""
 		};
-		if ( $( el ).hasClass( ".js_video_get_player" ) )
+		if ( $( el ).hasClass( "js_video_get_player" ) )
 			attributes.src += "&enablejsapi=1&mute=1&controls=0";
 		$iframe.attr( attributes );
 		$( el ).append( $iframe );
