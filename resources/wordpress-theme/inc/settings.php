@@ -5,6 +5,12 @@
  *
  */
 
+
+/*
+ *
+ * Show the Meta-data page if it exists
+ *
+ */
 if ( ! function_exists( 'acf_add_options_page' ) )
 	return;
 
