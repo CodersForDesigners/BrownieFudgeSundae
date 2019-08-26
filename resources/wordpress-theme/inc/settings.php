@@ -5,6 +5,17 @@
  *
  */
 
+/*
+ *
+ * Change the REST API base URL to match the WordPress URL instead of the Site URL
+ * 	This is because things break on the admin dashboard; you can't create/edit posts.
+ *
+ */
+add_filter( 'rest_url_prefix', function ( $prefix ) {
+	return substr( site_url(), strlen( home_url() ) + 1 ) . '/' . $prefix;
+} );
+
+
 
 /*
  *
