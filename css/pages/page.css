@@ -6,6 +6,11 @@
 	overflow-x: hidden;
 }
 
+/* -- Page Content -- */
+#page-content {
+	min-height: 100vh;
+}
+
 .outer-container {
 	position: relative;
 	width: 100%;

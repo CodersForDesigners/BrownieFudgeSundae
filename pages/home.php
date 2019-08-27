@@ -17,7 +17,14 @@
 
 <!-- Sample Page Content -->
 <section class="intro-section">
-	<p>You are at the source.</p>
+	<div class="container">
+		<div class="row">
+			<div class="columns small-12 space-half-top-bottom">
+				<div class="h2">Welcome.</div>
+				<div class="h3">You are at the source.</div>
+			</div>
+		</div>
+	</div>
 </section>
 <!-- END: Sample Page Content -->
 

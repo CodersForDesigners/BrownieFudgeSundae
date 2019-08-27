@@ -16,9 +16,14 @@ require_once __DIR__ . '/../inc/above.php';
 
 <!-- Sample Page Content -->
 <section class="intro-section">
-	<h5>What happens to the sample?</h5>
-	<br>
-	<p><?php echo getContent( 'Not sure yet.', 'about_the_sample', $pageId ) ?></p>
+	<div class="container">
+		<div class="row">
+			<div class="columns small-12">
+				<div class="h3 space-half-top space-min-bottom">Um, what happened to the sample?</div>
+				<div class="h5"><?php echo getContent( 'Not sure.', 'about_the_sample', $pageId ) ?></div>
+			</div>
+		</div>
+	</div>
 </section>
 <!-- END: Sample Page Content -->
 

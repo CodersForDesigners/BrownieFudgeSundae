@@ -1,1 +1,1 @@
-<h2 class="text-center">Page Not Found</h2>
+<div class="h2 text-center">Page Not Found</div>
