@@ -138,7 +138,7 @@ $pageTitle = getCurrentPageTitle( $links, $baseURL, $siteTitle );
 	<meta property="og:url" content="<?php echo $pageUrl ?>">
 	<meta property="og:type" content="website">
 	<meta property="og:title" content="<?php echo $pageTitle ?>">
-	<meta property="og:image" content="<?php echo getContent( '', 'og -> image' ) ?>">
+	<meta property="og:image" content="<?php echo $pageImage ?: '' ?>">
 	<meta property="og:description" content="<?php echo getContent( '', 'og -> description' ) ?>">
 	<meta property="og:site_name" content="<?php echo getContent( '', 'site_title' ) ?>">
 
@@ -146,7 +146,7 @@ $pageTitle = getCurrentPageTitle( $links, $baseURL, $siteTitle );
 	<!-- Schema.org / Google+ -->
 	<meta itemprop="name" content="<?php echo $pageTitle ?>">
 	<meta itemprop="description" content="<?php echo getContent( 'This is a website', 'schema -> description' ) ?>">
-	<meta itemprop="image" content="<?php echo getContent( '', 'schema -> image' ) ?>">
+	<meta itemprop="image" content="<?php echo $pageImage ?: '' ?>">
 
 
 	<!--

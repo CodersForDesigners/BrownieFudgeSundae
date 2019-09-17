@@ -16,6 +16,10 @@ $ver = '?v=20181126';
 // Pull some data from the request
 $urlSlug = $_GET[ '_slug' ] ?? null;
 $postType = $_GET[ '_post_type' ] ?? null;
+
+$pageImage = getContent( '', 'page_image', $urlSlug ) ?: getContent( '', 'page_image' );
+$pageImage = $pageImage[ 'sizes' ][ 'medium' ] ?: $pageImage[ 'sizes' ][ 'thumbnail' ] ?: $pageImage[ 'url' ];
+
 // #fornow
 // Just so that when some social media service (WhatsApp) try to ping URL,
 //  	it should not get a 404. This because is setting the response header.
