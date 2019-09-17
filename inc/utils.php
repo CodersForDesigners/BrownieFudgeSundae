@@ -48,7 +48,8 @@ function getContent ( $fallback, $field, $context = null ) {
 	if ( empty( $context ) )
 		$context = 'options';
 	else if ( is_string( $context ) ) {
-		$page = get_page_by_path( $context );
+		global $postType;
+		$page = get_page_by_path( $context, OBJECT, $postType ?: [ 'page', 'attachment' ] );
 		if ( empty( $page ) or empty( $page->ID ) )
 			$context = 'options';
 		else
