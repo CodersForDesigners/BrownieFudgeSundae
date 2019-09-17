@@ -13,6 +13,9 @@ require_once __DIR__ . '/lazaro.php';
  */
 $ver = '?v=20181126';
 
+// Pull some data from the request
+$urlSlug = $_GET[ '_slug' ] ?? null;
+$postType = $_GET[ '_post_type' ] ?? null;
 // #fornow
 // Just so that when some social media service (WhatsApp) try to ping URL,
 //  	it should not get a 404. This because is setting the response header.
