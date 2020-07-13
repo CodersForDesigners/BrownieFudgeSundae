@@ -22,7 +22,7 @@
 <section>
 
 	<div>
-		<div class="video-embed video-embed-bg js_video_embed js_video_get_player" data-src="68MBwELQKmk" data-loop="true" data-autoplay="true">
+		<div class="video-embed video-embed-bg js_video_embed js_video_get_player" data-src="lncVHzsc_QA" data-loop="true" data-autoplay="true">
 			<div class="video-embed-placeholder" style="background-image: url( 'https://via.placeholder.com/1500' );"></div>
 			<!-- <div class="video-loading-indicator"></div> -->
 		</div>
