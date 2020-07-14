@@ -10,6 +10,10 @@
  *
  */
 function initWordPress () {
+
+	if ( cmsIsEnabled() )
+		return;
+
 	$configFile = __DIR__ . '/../cms/wp-config.php';
 	$configFile__AlternateLocation = __DIR__ . '/../wp-config.php';
 	if ( file_exists( $configFile ) || file_exists( $configFile__AlternateLocation ) ) {
@@ -17,7 +21,7 @@ function initWordPress () {
 		if ( $includeStatus ) {
 			global $cmsIsEnabled;
 			$cmsIsEnabled = true;
-			setupVars();
+			establishContext();
 		}
 	}
 }
@@ -39,17 +43,46 @@ function cmsIsEnabled () {
  * Set up global variables
  *
  */
-$pageId = null;
 $siteUrl = ( isOnHTTPS() ? 'https://' : 'http://' ) . $_SERVER[ 'HTTP_HOST' ];
 $cmsIsEnabled = false;
 $thePost = null;
 $postId = null;
-function setupVars () {
-	global $pageId;
+
+
+
+/*
+ *
+ * Fetch the post object corresponding to the route.
+ *	If neither a post object, nor a page file for the route exists, respond and re-direct.
+ *
+ */
+function establishContext () {
+
+	global $thePost;
+	global $postId;
+	global $postType;
+	global $urlSlug;
 	global $siteUrl;
-	$pageId = get_the_ID();
-	// $siteUrl = preg_replace( '/\/[^\/.]*$/', '', site_url() );
+	global $hasDedicatedTemplate;
+
+	$thePost = getCurrentPost( $urlSlug, $postType );
+	if ( empty( $thePost ) and ! in_array( $postType, [ 'page', null ] ) ) {
+		// echo 'Please create a corresponding page or post with the slug' . '"' . $urlSlug . '"' . 'in the CMS.';
+		http_response_code( 404 );
+		return header( 'Location: /', true, 302 );
+		exit;
+	}
+	// If there is neither a corresponding post in the database nor a dedicated template for the given route, return a 404 and redirect
+	else if ( empty( $thePost ) and ! $hasDedicatedTemplate ) {
+		http_response_code( 404 );
+		return header( 'Location: /', true, 302 );
+		exit;
+	}
+	else if ( ! empty( $thePost ) )
+		$postId = $thePost[ 'ID' ];
+
 }
+
 
 
 /*
@@ -57,32 +90,19 @@ function setupVars () {
  * Get all posts of a certain type
  *
  */
-function getPostsOf ( $type, $options = [ ] ) {
+function getPostsOf ( $type, $limit = -1, $exclude = [ ] ) {
 
-	$limit = $options[ 'limit' ] ?? -1;
-	$order = $options[ 'order' ] ?? 'DESC';
-	$orderBy = $options[ 'orderBy' ] ?? 'date';
-
-	$postStatus = null;
-	if ( empty( $options[ 'postStatus' ] ) )
-		$postStatus = $type === 'attachment' ? 'inherit' : 'publish';
-	else
-		$postStatus = $options[ 'postStatus' ];
-
-	$exclude = $options[ 'exclude' ] ?? [ ];
+	$limit = $limit ?: -1;
 	if ( ! is_array( $exclude ) )
 		if ( is_int( $exclude ) )
 			$exclude = [ $exclude ];
 
-	$metaKey = $options[ 'metaKey' ] ?? '';
-
 	$posts = get_posts( [
 	    'post_type' => $type,
-	    'post_status' => $postStatus,
+	    'post_status' => 'publish',
 	    'numberposts' => $limit,
-	    'orderby' => $orderBy,
-	    'meta_key' => $metaKey,
-	    'order' => $order,
+	    // 'order' => 'ASC'
+	    'orderby' => 'date',
 	    'exclude' => $exclude
 	] );
 
@@ -113,7 +133,7 @@ function getContent ( $fallback, $field, $context = null ) {
 
 	if ( empty( $context ) ) {
 		// If the page is contextual to a post, then set that as the context
-		$context = $thePost ? $thePost->ID : 'options';
+		$context = $thePost ? $thePost[ 'ID' ] : 'options';
 	}
 	else if ( is_string( $context ) ) {
 		if ( $context === 'navigation' ) {
@@ -145,7 +165,7 @@ function getContent ( $fallback, $field, $context = null ) {
 		// If no content was found, search in underlying native post object
 		if ( empty( $content ) and ! empty( $thePost ) ) {
 			if ( $currentContext and ( ! is_string( $currentContext ) ) )
-				$content = $thePost->{$fieldParts[ 0 ]};
+				$content = $thePost[ $fieldParts[ 0 ] ] ?? null;
 			if ( empty( $content ) )
 				continue;
 		}
@@ -158,20 +178,79 @@ function getContent ( $fallback, $field, $context = null ) {
 			break;
 	}
 
-	// $content = get_field( $fieldParts[ 0 ], $content );
-	// if ( count( $fieldParts ) > 1 ) {
-	// 	$content = get_field( $fieldParts[ 0 ], $content );
-	// 	$remainderFieldParts = array_slice( $fieldParts, 1 );
-	// 	foreach ( $remainderFieldParts as $namespace )
-	// 		$content = $content[ $namespace ];
-	// }
-
 	if ( empty( $content ) )
 		return $fallback;
 	else
 		return $content;
 
 }
+
+
+
+/*
+ *
+ * Fetch a navigation menu and structure it accordingly
+ *
+ */
+function getNavigationMenu ( $name ) {
+
+	if ( ! cmsIsEnabled() ) {
+		$menuItems = require_once __DIR__ . '/default-nav-links.php';
+		return $menuItems;
+	}
+
+	$menuItems = getContent( [ ], $name, 'navigation' );
+
+	foreach ( $menuItems as &$item ) {
+		$itemUrl = $item[ 'url' ];
+
+		// If the item has a contextual URL override
+		$field = getContent( '', 'nav_override_from_field', $item[ 'ID' ] );
+		if ( ! empty( $field ) and ! empty( getContent( '', $field ) ) ) {
+			$itemUrl = getContent( '', $field );
+			// If the override value is a phone number, perform some modifications
+			if ( preg_match( '/^\+?[\d\s\-]+$/', $itemUrl ) ) {
+				// Replace the navigation item's label as well
+				$item[ 'title' ] = $itemUrl;
+				// Prepend the `tel:` protocol to the URL
+				$itemUrl = 'tel:' . str_replace( [ ' ', '-' ], '', $itemUrl );
+			}
+		}
+
+		// If the item is an in-page (section) link, i.e. it starts with a `#`
+		if ( ! empty( $itemUrl[ 0 ] ) and $itemUrl[ 0 ] === '#' ) {
+			global $requestPath;
+			$itemUrl = $requestPath . $itemUrl;
+			$item[ 'type' ] = 'in-page';
+			$item[ 'classes' ][ ] = 'hidden';
+		}
+
+		// If the item is a "post-selector"
+		$item[ 'selectorOf' ] = getContent( '', 'post-type-selector', $item[ 'ID' ] );
+		if ( ! empty( $item[ 'selectorOf' ] ) ) {
+			global $thePost;
+			$item[ 'type' ] = 'post-selector';
+			$item[ 'posts' ] = getPostsOf( $item[ 'selectorOf' ], null, $thePost[ 'ID' ] ?? [ ] );
+			$item[ 'classes' ][ ] = 'no-pointer';
+		}
+		else
+			$item[ 'classes' ][ ] = 'clickable';
+
+		// Finally, re-shape the data-structure to include all the relevant fields
+		$item = [
+			'label' => $item[ 'title' ],
+			'url' => $itemUrl,
+			'classes' => implode( ' ', $item[ 'classes' ] ),
+			'type' => $item[ 'type' ] ?? '',
+			'selectorOf' => $item[ 'selectorOf' ],
+			'posts' => $item[ 'posts' ] ?? [ ]
+		];
+	}
+	unset( $item );
+
+	return $menuItems;
+}
+
 
 
 /*
@@ -202,68 +281,29 @@ function isOnHTTPS () {
 }
 
 
-/*
- *
- * Figure out if the page being requested has a corresponding template or not
- *
- */
-function pageIsStatic () {
-	$_post_type = $_GET[ '_post_type' ] ?? null;
-	$_slug = $_GET[ '_slug' ] ?? null;
-	if ( empty( $_post_type ) )
-		return true;
-	else if ( empty( $_slug ) )
-		return true;
-	else
-		return false;
-	// return empty( $_post_type ) and empty( $_slug );
-}
-
-
 
 /*
  *
  * Get the current post that the url is refering to
  *
  */
-function getCurrentPost ( $slug, $type = 'post' ) {
-	if ( cmsIsEnabled() )
-		return get_page_by_path( $slug, OBJECT, $type );
-	else
+function getCurrentPost ( $slug, $type = null ) {
+
+	if ( ! cmsIsEnabled() )
 		return [ ];
-}
 
-
-
-/*
- *
- * Get the title of the current page
- *
- */
-function getCurrentPageTitle ( $siteLinks, $baseURL, $siteTitle ) {
-
-	$currentPageSlug = strstr( $_SERVER[ 'REQUEST_URI' ], '?', true );
-	if ( ! $currentPageSlug )
-		$currentPageSlug = $_SERVER[ 'REQUEST_URI' ];
-	if ( strlen( $currentPageSlug ) <= 1 )
-		$currentPageSlug = '/';
-
-		// in case, it is a relative path with dots
-	$baseURL = preg_replace( '/\.+/', '', $baseURL );
-	$partialPageTitle = 'Untitled';
-	foreach ( $siteLinks as $link ) {
-		$fullSlug = preg_replace( '/\/+/', '/', $baseURL . $link[ 'slug' ] );
-		if ( $currentPageSlug == $fullSlug ) {
-			$partialPageTitle = $link[ 'title' ];
-			break;
-		}
-	}
-	if ( $partialPageTitle == 'Untitled' and $currentPageSlug == '/' )
-		$pageTitle = $siteTitle;
+	$post = null;
+	if ( ! empty( $type ) )
+		$post = get_page_by_path( $slug, OBJECT, $type );
 	else
-		$pageTitle = $partialPageTitle . ' | ' . $siteTitle;
+		$post = get_page_by_path( $slug, OBJECT, 'post' ) ?: get_page_by_path( $slug, OBJECT, 'page' );
 
-	return $pageTitle;
+	if ( is_object( $post ) )
+		$post = get_object_vars( $post );
+	if ( ! is_array( $post ) )
+		$post = [ ];
+
+	return $post;
 
 }
 

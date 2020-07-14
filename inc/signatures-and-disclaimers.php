@@ -24,14 +24,6 @@
 
 .lazaro-disclaimer {
 
-	/*display: -webkit-box;*/
-	/*display: -ms-flexbox;*/
-	/*display: flex;*/
-
-	/*-webkit-box-align: center;*/
-	/*-ms-flex-align: center;*/
-	/*align-items: center;*/
-
 	width: 100%;
 	height: auto;
 	min-height: 100vh;
@@ -185,7 +177,7 @@
 
 
 // Perfectly Delicious Code
-/* http://localhost/inc/lazaro.php?cherry-on-top&location=../index.php */
+/* http://localhost/inc/signatures-and-disclaimers.php?cherry-on-top&location=../index.php */
 if ( strstr($_SERVER['REQUEST_URI'], 'cherry-on-top') ){
 
 	$location = $_GET['location'];

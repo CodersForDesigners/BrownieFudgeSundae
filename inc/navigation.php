@@ -1,5 +1,12 @@
 <?php
 
+/*
+ *
+ * Build out the data-structure driving the page navigation markup
+ *
+ */
+$navigationMenuItems = getNavigationMenu( 'Primary' );
+
 ?>
 
 <!-- Header Section -->
@@ -13,8 +20,8 @@
 			</div>
 			<div class="text-right columns small-9">
 				<div class="navigation inline">
-					<?php foreach ( $links as $link ) : ?>
-						<a class="button js_nav_button" href="<?php echo $link[ 'slug' ] ?>" target="<?php echo $link[ 'new_tab' ] ? '_blank' : '_self' ?>"><?php echo $link[ 'label' ] ?></a>
+					<?php foreach ( $navigationMenuItems as $item ) : ?>
+						<a class="button js_nav_button" href="<?php echo $item[ 'url' ] ?>"><?php echo $item[ 'label' ] ?></a>
 					<?php endforeach; ?>
 				</div>
 			</div>

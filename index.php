@@ -3,6 +3,8 @@
 
 
 
+require_once __DIR__ . '/conf.php';
+
 /*
  * -/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-
  *  Set some useful variables
@@ -14,9 +16,11 @@ $homePage = $documentRoot . '/pages/home.php';
 $requestPath = trim(
 	strstr( $_SERVER[ 'REQUEST_URI' ], '?', true ) ?: $_SERVER[ 'REQUEST_URI' ],
 	'/'
-);
-$postType = 'page';
+) ?: 'home';
+$postType = null;
 $urlSlug = '';
+// Does this route have a dedicated template?
+$hasDedicatedTemplate = false;
 
 
 
@@ -26,7 +30,8 @@ $urlSlug = '';
  * -/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-
  */
 // Home page
-if ( $requestPath === '' ) {
+if ( $requestPath === 'home' ) {
+	$hasDedicatedTemplate = true;
 	$urlSlug = 'home';
 	$_GET[ '_slug' ] = 'home';
 	return require_once $homePage;
@@ -35,6 +40,7 @@ if ( $requestPath === '' ) {
 // Every other page
 $filename = $documentRoot . '/pages/' . $requestPath . '.php';
 if ( file_exists( $filename ) ) {
+	$hasDedicatedTemplate = true;
 	// Set a query param
 	$urlSlug = $requestPath;
 	$_GET[ '_slug' ] = $requestPath;
@@ -47,5 +53,10 @@ else if ( count( explode( '/', $requestPath ) ) === 2 ) {
 	$filename = $documentRoot . '/pages/' . $postType . '.php';
 	return require_once $filename;
 }
-else
-	return header( 'Location: /', true, 302 );
+// Else fallback to the default template
+else {
+	$postType = 'post';
+	$urlSlug = $requestPath;
+	$filename = $documentRoot . '/pages/default.php';
+	return require_once $filename;
+}

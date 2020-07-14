@@ -25,15 +25,24 @@
  */
 require_once __DIR__ . '/../conf.php';
 
+
+if ( HTTPS_SUPPORT )
+	$httpProtocol = 'https';
+else
+	$httpProtocol = 'http';
+
+$hostName = $_SERVER[ 'HTTP_HOST' ] ?: $_SERVER[ 'SERVER_NAME' ];
+
+
 /**
  * Routing
  *
  */
 // Fetch media files from the WIP server
 if ( CMS_FETCH_MEDIA_REMOTELY )
-	if ( ( $_SERVER[ 'HTTP_HOST' ] ?: $_SERVER[ 'SERVER_NAME' ] ) !== CMS_REMOTE_ADDRESS )
-		if ( strpos( $_SERVER[ 'REQUEST_URI' ], '/cms/wp-content/uploads/' ) !== false )
-			return header( 'Location: http://' . CMS_REMOTE_ADDRESS . $_SERVER[ 'REQUEST_URI' ], true, 302 );
+	if ( $hostName !== CMS_REMOTE_ADDRESS )
+		if ( strpos( $_SERVER[ 'REQUEST_URI' ], '/content/cms/' ) !== false )
+			return header( 'Location: ' . $httpProtocol . '://' . CMS_REMOTE_ADDRESS . $_SERVER[ 'REQUEST_URI' ], true, 302 );
 
 
 
@@ -42,8 +51,18 @@ if ( CMS_FETCH_MEDIA_REMOTELY )
  *
  * Set it such that it is contextual to the domain that the site is hosted behind
  */
-define( 'WP_HOME', 'http://' . ( $_SERVER[ 'HTTP_HOST' ] ?: $_SERVER[ 'SERVER_NAME' ] ) );
-define( 'WP_SITEURL', 'http://' . ( $_SERVER[ 'HTTP_HOST' ] ?: $_SERVER[ 'SERVER_NAME' ] ) . '/cms' );
+define( 'WP_HOME', $httpProtocol . '://' . $hostName );
+if ( ! defined( 'WP_SITEURL' ) )
+	define( 'WP_SITEURL', $httpProtocol . '://' . $hostName . '/cms' );
+
+
+
+/**
+ * Cron
+ *
+ */
+if ( BFS_ENV_PRODUCTION )
+	define( 'DISABLE_WP_CRON', true );
 
 
 
@@ -67,7 +86,7 @@ define( 'DB_USER', CMS_DB_USER );
 define( 'DB_PASSWORD', CMS_DB_PASSWORD );
 
 /** MySQL hostname */
-define( 'DB_HOST', 'localhost' );
+define( 'DB_HOST', CMS_DB_HOST );
 
 /** Database Charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
@@ -75,7 +94,7 @@ define( 'DB_CHARSET', 'utf8' );
 /** The Database Collate type. Don't change this if in doubt. */
 define( 'DB_COLLATE', '' );
 
-/**#@+
+/**
  * Authentication Unique Keys and Salts.
  *
  * Change these to different unique phrases!
@@ -116,13 +135,23 @@ $table_prefix = 'wp_';
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
 define( 'WP_DEBUG', CMS_DEBUG_MODE );
-define( 'WP_DEBUG_LOG', CMS_DEBUG_LOG );
+define( 'WP_DEBUG_LOG', CMS_DEBUG_LOG_TO_FILE );
+define( 'WP_DEBUG_DISPLAY', CMS_DEBUG_LOG_TO_FRONTEND );
+ini_set( 'display_errors', CMS_DEBUG_LOG_TO_FRONTEND ? '1' : '0' );
 
 /**
  * WordPress Updates
  *
  */
 define( 'WP_AUTO_UPDATE_CORE', CMS_AUTO_UPDATE );
+
+/**
+ * Media and Uploads
+ *
+ */
+if ( ! defined( 'UPLOADS' ) )
+	define( 'UPLOADS', '../content/cms' );	# this one is relative to `ABSPATH`
+
 
 /* That's all, stop editing! Happy publishing. */
 

@@ -3,21 +3,23 @@
 // Get utility functions
 require_once __DIR__ . '/utils.php';
 // Include WordPress for Content Management
-initWordPress();
+if ( CMS_ENABLED )
+	initWordPress();
 
 /* -- Lazaro disclaimer and footer -- */
-require_once __DIR__ . '/lazaro.php';
+require_once __DIR__ . '/signatures-and-disclaimers.php';
 
 /*
  * A version number for versioning assets to invalidate the browser cache
  */
-$ver = '?v=20200103';
+$ver = '?v=20200713';
 
 /*
- * Get all the links on the site
+ * A class name for temporarily disabling sections or features or content parts while in development
  */
-$defaultLinks = require __DIR__ . '/default-nav-links.php';
-$links = getContent( $defaultLinks, 'pages' );
+$hide = 'hidden';
+$showMedium = 'show-for-medium';
+
 
 /*
  * Figure out the base URL
@@ -29,38 +31,33 @@ if ( count( $pathFragments ) > 1 )
 else
 	$baseURL = '/';
 
-/*
- * Get the title and URL of the website and current page
- */
-if ( cmsIsEnabled() ) {
-	$thePost = getCurrentPost( $urlSlug, $postType );
-	if ( empty( $thePost ) and $postType !== 'page' ) {
-		// echo 'Please create a corresponding page or post with the slug' . '"' . $urlSlug . '"' . 'in the CMS.';
-		http_response_code( 404 );
-		return header( 'Location: /', true, 302 );
-		exit;
-	}
-	else if ( ! empty( $thePost ) )
-		$postId = $thePost->ID;
-}
-
 
 // Construct the page's title ( for use in the title tag )
-$siteTitle = getContent( '', 'page_title', $urlSlug ) ?: getContent( 'Guesture', 'page_title' );
+$siteTitle = getContent( '', 'page_title', $urlSlug ) ?: getContent( 'Fudge', 'page_title' );
 $pageUrl = $siteUrl . $requestPath;
 
+// Build the Page Title ( if an explicit one is set, use that )
 if ( cmsIsEnabled() and ! empty( $thePost ) )
-	$pageTitle = $thePost->post_title . ' | ' . $siteTitle;
+	$pageTitle = ( $pageTitle ?? $thePost[ 'post_title' ] ) . ' | ' . $siteTitle;
 else
-	$pageTitle = $siteTitle;
+	$pageTitle = empty( $pageTitle ) ? $siteTitle : ( $pageTitle . ' | ' . $siteTitle );
 
 
-// Get the page's image for SEO and other related purposes
-$pageImage = getContent( '', 'page_image', $urlSlug ) ?: getContent( '', 'page_image' );
-if ( ! empty( $pageImage[ 'sizes' ] ) )
-	$pageImage = $pageImage[ 'sizes' ][ 'medium' ] ?: $pageImage[ 'sizes' ][ 'thumbnail' ] ?: $pageImage[ 'url' ];
-else
-	$pageImage = $pageImage[ 'url' ] ?? null;
+/*
+ * Meta / SEO
+ */
+$metaDescription = $metaDescription ?? getContent( null, 'meta_description' );
+$metaImage = $metaImage ?? getContent( [ ], 'meta_image' );
+$metaImage = $metaImage[ 'sizes' ][ 'medium' ] ?? $metaImage[ 'sizes' ][ 'small' ] ?? $metaImage[ 'sizes' ][ 'thumbnail' ] ?? $metaImage[ 'url' ] ?? null;
+
+
+/*
+ * Meta / SEO
+ */
+$metaDescription = $metaDescription ?? getContent( null, 'meta_description' );
+$metaImage = $metaImage ?? getContent( [ ], 'meta_image' );
+$metaImage = $metaImage[ 'sizes' ][ 'medium' ] ?? $metaImage[ 'sizes' ][ 'small' ] ?? $metaImage[ 'sizes' ][ 'thumbnail' ] ?? $metaImage[ 'url' ] ?? null;
+
 
 // #fornow
 // Just so that when some social media service (WhatsApp) try to ping URL,
@@ -88,7 +85,7 @@ http_response_code( 200 );
 
 	<div id="page-wrapper"><!-- Page Wrapper -->
 
-		<?php // require_once 'navigation.php'; ?>
+		<?php require_once 'navigation.php'; ?>
 
 		<!-- Page Content -->
 		<div id="page-content">
