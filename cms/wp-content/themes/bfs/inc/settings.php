@@ -12,7 +12,11 @@
  *
  */
 add_filter( 'rest_url_prefix', function ( $prefix ) {
-	return substr( site_url(), strlen( home_url() ) + 1 ) . '/' . $prefix;
+	// For older versions of WordPress
+	// return substr( site_url(), strlen( home_url() ) + 1 ) . '/' . $prefix;
+	// From WordPress 5.4.2 onwards
+	// return substr( site_url(), strlen( home_url() ) + 1 ) . '?rest_route=';
+	return '?rest_route=';
 } );
 
 
