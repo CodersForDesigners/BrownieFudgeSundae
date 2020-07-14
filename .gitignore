@@ -2,6 +2,8 @@
 # the .DS_Store files everywhere
 .DS_Store
 
+/conf.php
+
 # the media directory
 /media
 
