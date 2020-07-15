@@ -3,6 +3,7 @@
 .DS_Store
 
 /conf.php
+/conf.*.php
 
 # the media directory
 /media
