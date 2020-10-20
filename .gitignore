@@ -5,11 +5,5 @@
 /conf.php
 /conf.*.php
 
-# the media directory
-/media
-
-# the favicon directory
-/favicon
-
-# the download directory
-/download
+# the content directory
+/content
