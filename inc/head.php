@@ -127,6 +127,12 @@
 	<link rel="stylesheet" type="text/css" href="plugins/slick/slick.css<?php echo $ver ?>"/>
 	<link rel="stylesheet" type="text/css" href="plugins/slick/slick-theme.css<?php echo $ver ?>"/>
 
+
+	<?php /* Query Monitor CMS plugin */ ?>
+	<?php if ( CMS_ENABLED and is_user_logged_in() ) : ?>
+		<link rel="stylesheet" type="text/css" href="cms/wp-content/plugins/query-monitor/assets/query-monitor.css<?= $ver ?>"/>
+	<?php endif; ?>
+
 	<!--
 	*
 	*	Fonts and Icons

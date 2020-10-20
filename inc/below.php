@@ -53,6 +53,12 @@
 		echo getContent( '', 'arbitrary_code_body_bottom' );
 	?>
 
+	<?php /* Query Monitor CMS plugin */ ?>
+	<?php if ( CMS_ENABLED and is_user_logged_in() ) : ?>
+		<script type="text/javascript" src="cms/wp-content/plugins/query-monitor/assets/query-monitor.js<?= $ver ?>"></script>
+	<?php endif; ?>
+
+
 </body>
 
 </html>
