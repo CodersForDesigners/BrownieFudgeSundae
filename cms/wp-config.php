@@ -13,7 +13,7 @@
  * * Database table prefix
  * * ABSPATH
  *
- * @link https://codex.wordpress.org/Editing_wp-config.php
+ * @link https://wordpress.org/support/article/editing-wp-config-php/
  *
  * @package WordPress
  */
@@ -26,12 +26,22 @@
 require_once __DIR__ . '/../conf.php';
 
 
+
+/**
+ * WordPress Locations (Frontend and Backend)
+ *
+ * Set it such that it is contextual to the domain that the site is hosted behind
+ */
 if ( HTTPS_SUPPORT )
 	$httpProtocol = 'https';
 else
 	$httpProtocol = 'http';
 
 $hostName = $_SERVER[ 'HTTP_HOST' ] ?: $_SERVER[ 'SERVER_NAME' ];
+define( 'WP_HOME', $httpProtocol . '://' . $hostName );
+if ( ! defined( 'WP_SITEURL' ) )
+	define( 'WP_SITEURL', $httpProtocol . '://' . $hostName . '/cms' );
+
 
 
 /**
@@ -47,22 +57,30 @@ if ( CMS_FETCH_MEDIA_REMOTELY )
 
 
 /**
- * WordPress Website Roots
+ * Caching
  *
- * Set it such that it is contextual to the domain that the site is hosted behind
  */
-define( 'WP_HOME', $httpProtocol . '://' . $hostName );
-if ( ! defined( 'WP_SITEURL' ) )
-	define( 'WP_SITEURL', $httpProtocol . '://' . $hostName . '/cms' );
+define( 'WP_CACHE', CMS_CACHE_PAGES );
 
 
 
 /**
- * Cron
+ * Content, Media and Uploads
  *
  */
-if ( BFS_ENV_PRODUCTION )
-	define( 'DISABLE_WP_CRON', true );
+// Prevent posts from auto-saving
+define( 'AUTOSAVE_INTERVAL', 60 * 60 * 24 );
+define( 'WP_POST_REVISIONS', 50 );
+if ( ! defined( 'UPLOADS' ) )
+	define( 'UPLOADS', '../content/cms' );	# this one is relative to `ABSPATH`
+
+
+
+/**
+ * File System
+ *
+ */
+define( 'FS_METHOD', 'direct' );
 
 
 
@@ -88,13 +106,17 @@ define( 'DB_PASSWORD', CMS_DB_PASSWORD );
 /** MySQL hostname */
 define( 'DB_HOST', CMS_DB_HOST );
 
+/** Use an SSL connection when connecting to the database */
+if ( CMS_DB_SSL )
+	define( 'MYSQL_CLIENT_FLAGS', MYSQLI_CLIENT_SSL );
+
 /** Database Charset to use in creating database tables. */
-define( 'DB_CHARSET', 'utf8mb4' );
+define( 'DB_CHARSET', 'utf8' );
 
 /** The Database Collate type. Don't change this if in doubt. */
 define( 'DB_COLLATE', '' );
 
-/**
+/**#@+
  * Authentication Unique Keys and Salts.
  *
  * Change these to different unique phrases!
@@ -103,14 +125,14 @@ define( 'DB_COLLATE', '' );
  *
  * @since 2.6.0
  */
-define( 'AUTH_KEY',         '<a++9j-rX<iTG=-9 dpAWL:^`s;!q>1;31^<nTQt3m|?vI#eWt[GLDK-?Y)W[p/c' );
-define( 'SECURE_AUTH_KEY',  '/:c0/I=4&S>QJW$d|eo 3=(rapT,^z*|7wd~hV;0-fy^M9%KKy&D<70Ojh8,>X8r' );
-define( 'LOGGED_IN_KEY',    'S|pV2e39Dr.}UP[uW> :>*+]W*@r?>pH|J0znYuhz7p-G0i;ooihgkpWmU=Yp#W:' );
-define( 'NONCE_KEY',        'CqOL5o9!-~:o&Cg%^?43G6*%m$+awcQb`T5D|@z-ftM|IGbW&)raNapsBg|g?|gE' );
-define( 'AUTH_SALT',        'eNdOQ%- VA-63qnqeLcv3XX/[,`>{XYW/eK<j-2|bYs8) *=/>}{0+!2DgMoBTs9' );
-define( 'SECURE_AUTH_SALT', '}~`:&urLCI8qHVRF#}%@[^(s@gfW{mR@ hDWEc=hT!Y[R|1gZ){)#X;03(|lSZk#' );
-define( 'LOGGED_IN_SALT',   '~YRE;dq.ZvmFDX}^|^SSxzDGA]r?P<[_#R&9V.XYYfMwl}w#gbi+}.4R|W$bNp|+' );
-define( 'NONCE_SALT',       'DaFI#xL2`JKNa-&fo) x83]uu3C>.3W@xhZ=LB+:bs1%R*z@1yvGc *|vdA](8Z=' );
+define( 'AUTH_KEY', 'Psj5A.)o4N1!+%Hq[ RsE|_#&!u6]c@#{8pJG;M,[.G{$d)7ibW!2}??*3Yd{67j' );
+define( 'SECURE_AUTH_KEY', 'cA45tC%jUI(v0L%_N=$1 Dq7zboM`}pg+{L5ci/K.,9yCys3&>6wJjhc}]%0 +r>' );
+define( 'LOGGED_IN_KEY', 'MbkBN!j:+t=U1pyC$~@E3qT$ u{|oV{ZU+pn*6n/2Ud$5DlO*B0%sH6{0a*F7ha6' );
+define( 'NONCE_KEY', 'rH{5ol~tg64etYCV8k6)n66H{WH]dR%>@IRXtjr5H3}8VQUh]YVm=K$Ea(Hr?;s1' );
+define( 'AUTH_SALT', '| sUjhKpmtHyN[ddh;L$rq9L4G>ep-#_m*d({q0u4*f.#c$s9o^.i{x0Z^A?1~Ow' );
+define( 'SECURE_AUTH_SALT', 'iD2c->2V 1GKX^tX(N?+~x45eY=o9;V49.u{%|hPG)2`IFNOdMwN$dJp6Otm1x~8' );
+define( 'LOGGED_IN_SALT', '~C*egoK-7&Rs?7~7%#lvMzDW_gf%$yIi#Ev=Ru/uS5j30VTwnEo2BS14aQgNt9s)' );
+define( 'NONCE_SALT', 'HmzBFHq<%_!E^5GS`G S3f_Nd:K:!?e[`=/p@1RnMVF3,~Wk^]zH$lJxWTLM!=U+' );
 
 /**#@-*/
 
@@ -130,14 +152,25 @@ $table_prefix = 'wp_';
  * in their development environments.
  *
  * For information on other constants that can be used for debugging,
- * visit the Codex.
+ * visit the documentation.
  *
- * @link https://codex.wordpress.org/Debugging_in_WordPress
+ * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
 define( 'WP_DEBUG', CMS_DEBUG_MODE );
 define( 'WP_DEBUG_LOG', CMS_DEBUG_LOG_TO_FILE );
 define( 'WP_DEBUG_DISPLAY', CMS_DEBUG_LOG_TO_FRONTEND );
 ini_set( 'display_errors', CMS_DEBUG_LOG_TO_FRONTEND ? '1' : '0' );
+
+
+
+/**
+ * Cron
+ *
+ */
+// if ( BFS_ENV_PRODUCTION )
+	// define( 'DISABLE_WP_CRON', true );
+
+
 
 /**
  * WordPress Updates
@@ -145,19 +178,13 @@ ini_set( 'display_errors', CMS_DEBUG_LOG_TO_FRONTEND ? '1' : '0' );
  */
 define( 'WP_AUTO_UPDATE_CORE', CMS_AUTO_UPDATE );
 
-/**
- * Media and Uploads
- *
- */
-if ( ! defined( 'UPLOADS' ) )
-	define( 'UPLOADS', '../content/cms' );	# this one is relative to `ABSPATH`
 
 
 /* That's all, stop editing! Happy publishing. */
 
 /** Absolute path to the WordPress directory. */
 if ( ! defined( 'ABSPATH' ) )
-	define( 'ABSPATH', dirname( __FILE__ ) . '/' );
+	define( 'ABSPATH', __DIR__ . '/' );
 
 /** Sets up WordPress vars and included files. */
-require_once( ABSPATH . 'wp-settings.php' );
+require_once ABSPATH . 'wp-settings.php';
