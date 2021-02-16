@@ -46,7 +46,7 @@
 	<meta name="robots" content="index,follow"><!-- All Search Engines -->
 	<meta name="googlebot" content="index,follow"><!-- Google Specific -->
 	<!-- Verify website ownership -->
-	<meta name="google-site-verification" content="<?php echo getContent( '', 'google_site_verification_token' ); ?>"><!-- Google Search Console -->
+	<meta name="google-site-verification" content="<?= getContent( '', 'google_site_verification_token' ) ?: GOOGLE_SITE_VERIFICATION_TOKEN; ?>"><!-- Google Search Console -->
 
 
 	<!--
