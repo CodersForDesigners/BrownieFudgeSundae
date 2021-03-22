@@ -7,8 +7,6 @@
 
 use BFS\CMS;
 CMS::setupContext();
-$thePost = CMS::getThisPost();
-$postContent = $thePost->get( 'post_content' ) ?: 'Not sure.';
 
 require_once __ROOT__ . '/inc/header.php';
 
@@ -23,9 +21,9 @@ require_once __ROOT__ . '/inc/header.php';
 	<div class="container">
 		<div class="row">
 			<div class="columns small-12">
-				<div class="h3 space-half-top space-min-bottom">Here is a sample.</div>
+				<div class="h3 space-half-top space-min-bottom">New Post</div>
 				<div class="h5">
-					<?= $postContent ?>
+					This is new.
 				</div>
 			</div>
 		</div>

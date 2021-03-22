@@ -5,11 +5,9 @@
  *
  */
 
-// Page-specific preparatory code goes here.
+require_once __ROOT__ . '/inc/header.php';
 
 ?>
-
-<?php require_once __DIR__ . '/../inc/above.php'; ?>
 
 
 
@@ -32,4 +30,4 @@
 
 
 
-<?php require_once __DIR__ . '/../inc/below.php'; ?>
+<?php require_once __ROOT__ . '/inc/footer.php'; ?>
