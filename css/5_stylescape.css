@@ -550,6 +550,24 @@ select { cursor: pointer; }
 
 /*
  *
+ *	Material Icons
+ *
+ */
+
+.material-icons {
+	font-size: inherit !important;
+	vertical-align: middle;
+}
+.material-icons:after {
+	content: attr(data-icon);
+}
+
+
+
+
+
+/*
+ *
  *	Carousel
  *
  */
