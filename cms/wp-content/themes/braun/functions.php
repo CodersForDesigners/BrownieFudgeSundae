@@ -81,6 +81,13 @@ add_action( 'after_setup_theme', function () {
 	add_theme_support( 'post-thumbnails' );
 
 	/*
+	 *
+	 * Media Settings
+	 *
+	 */
+	add_image_size( 'small', 400, 400, false );
+
+	/*
 	 * Switch default core markup for search form, comment form, and comments
 	 * to output valid HTML5.
 	 */
