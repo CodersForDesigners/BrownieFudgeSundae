@@ -180,6 +180,15 @@ define( 'WP_AUTO_UPDATE_CORE', CMS_AUTO_UPDATE );
 
 
 
+/**
+ * Templating
+ *
+ */
+if ( ! defined( 'WP_DEFAULT_THEME' ) )
+	define( 'WP_DEFAULT_THEME', CMS_DEFAULT_THEME );
+
+
+
 /* That's all, stop editing! Happy publishing. */
 
 /** Absolute path to the WordPress directory. */
